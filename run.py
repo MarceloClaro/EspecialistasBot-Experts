@@ -1,8 +1,8 @@
-import json
-import streamlit as st
-import os
-from typing import Tuple, Optional
-from groq import Groq
+import json  # Importa o módulo json para lidar com arquivos JSON
+import streamlit as st  # Importa o módulo Streamlit e o renomeia como st
+import os  # Importa o módulo os para interagir com o sistema operacional
+from typing import Tuple, Optional  # Importa tipos específicos do Python
+from groq import Groq  # Importa a classe Groq do módulo groq
 
 # Define o layout da página como "wide" (amplo)
 st.set_page_config(layout="wide")
@@ -19,14 +19,14 @@ MODEL_MAX_TOKENS = {
 
 def load_agent_options() -> list:
     # Função que carrega as opções de agentes do arquivo ou retorna uma lista com "Create (or choose) an expert..."
-    agent_options = ['Create (or choose) an expert...']
+    agent_options = ['Criar (ou escolher) um especialista...']
     if os.path.exists(FILEPATH):
         with open(FILEPATH, 'r') as file:
             try:
                 agents = json.load(file)
                 agent_options.extend([agent["agent"] for agent in agents if "agent" in agent])
             except json.JSONDecodeError:
-                st.error("Error reading the agents file. Please check its format.")
+                st.error("Erro ao ler o arquivo de agentes. Por favor, verifique o formato do arquivo.")
     return agent_options
 
 def get_max_tokens(model_name: str) -> int:
@@ -54,7 +54,7 @@ def fetch_assistant_response(user_input: str, model_name: str, temperature: floa
     try:
         groq_api_key = os.environ.get("GROQ_API_KEY")
         if not groq_api_key:
-            raise ValueError("GROQ_API_KEY environment variable not set.")
+            raise ValueError("Variável de ambiente GROQ_API_KEY não definida.")
 
         client = Groq(api_key=groq_api_key)
 
@@ -62,7 +62,7 @@ def fetch_assistant_response(user_input: str, model_name: str, temperature: floa
             # Função auxiliar que obtém a resposta do modelo com base em um prompt
             completion = client.chat.completions.create(
                 messages=[
-                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "system", "content": "Você é um assistente útil."},
                     {"role": "user", "content": prompt},
                 ],
                 model=model_name,
@@ -74,9 +74,9 @@ def fetch_assistant_response(user_input: str, model_name: str, temperature: floa
             )
             return completion.choices[0].message.content
 
-        if agent_selection == "Create (or choose) an expert...":
+        if agent_selection == "Criar (ou escolher) um especialista...":
             # Se a opção selecionada for criar um novo expert
-            phase_one_prompt = f"Act as an expert prompt engineer. Analyze the following input to determine the title and characteristics of the best expert to answer the question. Begin the response with the expert's title followed by a period ['.'], then provide a concise description of that expert: {user_input}"
+            phase_one_prompt = f"Atue como um engenheiro de prompt especialista. Analise a seguinte entrada para determinar o título e características do melhor especialista para responder a pergunta. Inicie a resposta com o título do especialista seguido de um ponto ['.'], em seguida, forneça uma descrição concisa desse especialista: {user_input}"
             phase_one_response = get_completion(phase_one_prompt)
             first_period_index = phase_one_response.find(".")
             expert_title = phase_one_response[:first_period_index].strip()
@@ -91,13 +91,13 @@ def fetch_assistant_response(user_input: str, model_name: str, temperature: floa
                     expert_title = agent_found["agent"]
                     expert_description = agent_found["description"]
                 else:
-                    raise ValueError("Selected expert not found in the file.")
+                    raise ValueError("Especialista selecionado não encontrado no arquivo.")
 
-        phase_two_prompt = f"Act as {expert_title}, an expert on the topic, and provide a thorough and well-formatted response to the following question: {user_input}"
+        phase_two_prompt = f"Atue como {expert_title}, um especialista no tópico, e forneça uma resposta completa e bem formatada para a seguinte pergunta: {user_input}"
         phase_two_response = get_completion(phase_two_prompt)
 
     except Exception as e:
-        st.error(f"An error occurred: {e}")
+        st.error(f"Ocorreu um erro: {e}")
         return "", ""
 
     return expert_title, phase_two_response
@@ -107,7 +107,7 @@ def refine_response(expert_title: str, phase_two_response: str, user_input: str,
     try:
         groq_api_key = os.environ.get("GROQ_API_KEY")
         if not groq_api_key:
-            raise ValueError("GROQ_API_KEY environment variable not set.")
+            raise ValueError("Variável de ambiente GROQ_API_KEY não definida.")
 
         client = Groq(api_key=groq_api_key)
 
@@ -115,7 +115,7 @@ def refine_response(expert_title: str, phase_two_response: str, user_input: str,
             # Função auxiliar que obtém a resposta do modelo com base em um prompt
             completion = client.chat.completions.create(
                 messages=[
-                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "system", "content": "Você é um assistente útil."},
                     {"role": "user", "content": prompt},
                 ],
                 model=model_name,
@@ -127,13 +127,13 @@ def refine_response(expert_title: str, phase_two_response: str, user_input: str,
             )
             return completion.choices[0].message.content
 
-        refine_prompt = f"Act as {expert_title}, an expert on the topic. Here is the original response to the question '{user_input}': {phase_two_response}\n\nPlease thoroughly review and refine this response, making improvements and addressing any shortcomings. Return an updated version of the response that incorporates your refinements."
+        refine_prompt = f"Atue como {expert_title}, um especialista no tópico. Aqui está a resposta original à pergunta '{user_input}': {phase_two_response}\n\nPor favor, revise minuciosamente e refine esta resposta, fazendo melhorias e abordando quaisquer deficiências. Retorne uma versão atualizada da resposta que incorpore seus refinamentos."
         
         refined_response = get_completion(refine_prompt)
         return refined_response
 
     except Exception as e:
-        st.error(f"An error occurred during refinement: {e}")
+        st.error(f"Ocorreu um erro durante o refinamento: {e}")
         return ""
 
 # Carrega as opções de agentes do arquivo
@@ -141,24 +141,24 @@ agent_options = load_agent_options()
 
 # Define o título da página
 st.title("Groqbot Experts")
-st.write("Enter your request to have it addressed by the ideal expert.")
+st.write("Insira sua solicitação para ser atendida pelo especialista ideal.")
 
 # Divide a página em duas colunas
 col1, col2 = st.columns(2)
 
 with col1:
     # Área de texto para o usuário inserir sua solicitação
-    user_input = st.text_area("Please enter your request:", "", key="user_input")
+    user_input = st.text_area("Por favor, insira sua solicitação:", "", key="user_input")
     
     # Caixa de seleção para escolher um expert
-    agent_selection = st.selectbox("Choose an Expert", options=agent_options, index=0, key="agent_selection")
+    agent_selection = st.selectbox("Escolha um Especialista", options=agent_options, index=0, key="agent_selection")
     
     # Caixa de seleção para escolher um modelo
-    model_name = st.selectbox("Choose a Model", list(MODEL_MAX_TOKENS.keys()), index=0, key="model_name")
+    model_name = st.selectbox("Escolha um Modelo", list(MODEL_MAX_TOKENS.keys()), index=0, key="model_name")
     
     # Controle deslizante para definir o nível de criatividade
-    temperature = st.slider("Creativity Level", min_value=0.0, max_value=1.0, value=0.0, step=0.01, key="temperature")
+    temperature = st.slider("Nível de Criatividade", min_value=0.0, max_value=1.0, value=0.0, step=0.01, key="temperature")
     
     # Exibe o limite máximo de tokens para o modelo selecionado
     max_tokens = get_max_tokens(model_name)
-    st.write(f"Max Tokens for selected model: {max_tokens}")
+    st.write(f"Máximo de Tokens para o modelo selecionado: {max_tokens}")
