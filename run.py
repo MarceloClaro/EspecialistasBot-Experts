@@ -67,24 +67,12 @@ def fetch_assistant_response(user_input: str, model_name: str, temperature: floa
             )
             return completion.choices[0].message.content
 
-        if agent_selection == "Criar (ou escolher) um especialista...":
-            phase_one_prompt = f"Atue como engenheiro de prompt especialista. Analise a seguinte entrada para determinar o título e as características do melhor especialista para responder à pergunta. Comece a resposta com o título do especialista seguido de um ponto ['.'], depois forneça uma descrição concisa desse especialista: {user_input}"
-            phase_one_response = get_completion(phase_one_prompt)
-            first_period_index = phase_one_response.find(".")
-            expert_title = phase_one_response[:first_period_index].strip()
-            expert_description = phase_one_response[first_period_index + 1:].strip()
-            save_expert(expert_title, expert_description)
-        else:
-            with open(FILEPATH, 'r') as file:
-                agents = json.load(file)
-                agent_found = next((agent for agent in agents if agent["agente"] == agent_selection), None)
-                if agent_found:
-                    expert_title = agent_found["agente"]
-                    expert_description = agent_found["descricao"]
-                else:
-                    raise ValueError("Especialista selecionado não encontrado no arquivo.")
+        # Recuperação de informações relevantes para a pergunta do usuário
+        retrieval_prompt = f"Recupere informações relevantes para responder à pergunta: {user_input}"
+        retrieval_response = get_completion(retrieval_prompt)
 
-        phase_two_prompt = f"Atue como {expert_title}, um especialista no assunto, e forneça uma resposta completa e bem formatada para a seguinte pergunta: {user_input}"
+        # Incorporação das informações recuperadas no prompt da fase dois
+        phase_two_prompt = f"Atue como {expert_title}, um especialista no assunto, e forneça uma resposta completa e bem formatada para a seguinte pergunta: {user_input}\n\nInformações recuperadas: {retrieval_response}"
         phase_two_response = get_completion(phase_two_prompt)
 
     except Exception as e:
