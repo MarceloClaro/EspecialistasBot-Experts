@@ -136,7 +136,7 @@ def refinar_resposta(titulo_especialista: str, resposta_fase_dois: str, entrada_
 opcoes_agentes = carregar_opcoes_agentes()
 
 # Define o título da página
-st.title("Groqbot Experts")
+st.title("Especialista Experts")
 st.write("Digite sua solicitação para que ela seja respondida pelo especialista ideal.")
 
 # Divide a página em duas colunas
