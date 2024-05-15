@@ -11,6 +11,7 @@ FILEPATH = "agents.json"
 MODEL_MAX_TOKENS = {
     'mixtral-8x7b-32768': 32768,
     'llama2-70b-4096': 4096,
+    'llama2-8b-4096': 4096,
     'gemma-7b-it': 8192,
 }
 
