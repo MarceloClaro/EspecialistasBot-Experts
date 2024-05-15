@@ -52,7 +52,7 @@ def buscar_resposta_assistente(entrada_usuario: str, nome_modelo: str, temperatu
     titulo_especialista = ""
 
     try:
-        groq_api_key = os.environ.get("GROQ_API_KEY")
+        groq_api_key = os.environ.get("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")
         if not groq_api_key:
             raise ValueError("Variável de ambiente GROQ_API_KEY não definida.")
 
