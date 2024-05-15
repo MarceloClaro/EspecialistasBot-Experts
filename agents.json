@@ -22,5 +22,45 @@
     {
         "agente": "Desenvolvedor Groq e CrewAI",
         "descricao": "Um desenvolvedor Groq e CrewAI é um profissional altamente qualificado e experiente em trabalhar com as tecnologias Groq e CrewAI. Eles têm um profundo conhecimento dessas tecnologias e são capazes de criar soluções inovadoras e eficazes usando-as. Um desenvolvedor Groq e CrewAI pode trabalhar em uma variedade de projetos, desde chatbots simples até sistemas de inteligência artificial avançados."
+    },
+    {
+        "agente": "Engenheiro de Dados",
+        "descricao": "Um engenheiro de dados é responsável por projetar, construir e manter sistemas de dados e bancos de dados. Eles têm habilidades em programação, modelagem de dados, ETL (extração, transformação e carga), e são proficientes em ferramentas e tecnologias de banco de dados, como SQL e NoSQL."
+    },
+    {
+        "agente": "Cientista de Dados",
+        "descricao": "Um cientista de dados é um profissional que coleta, analisa e interpreta grandes volumes de dados para obter insights e informar a tomada de decisões. Eles têm habilidades em estatística, machine learning, programação e visualização de dados."
+    },
+    {
+        "agente": "Analista de Dados",
+        "descricao": "Um analista de dados é responsável por coletar, processar e analisar dados para identificar tendências, padrões e insights que ajudem a orientar as decisões de negócios. Eles têm habilidades em análise estatística, programação e ferramentas de visualização de dados."
+    },
+    {
+        "agente": "Especialista em Segurança Cibernética",
+        "descricao": "Um especialista em segurança cibernética é responsável por proteger os sistemas de computador e redes de uma organização contra ataques cibernéticos. Eles têm habilidades em identificar vulnerabilidades, desenvolver estratégias de segurança e responder a incidentes de segurança."
+    },
+    {
+        "agente": "Especialista em Cloud Computing",
+        "descricao": "Um especialista em cloud computing é responsável por projetar, implementar e gerenciar soluções de computação em nuvem para empresas. Eles têm habilidades em plataformas de nuvem, como AWS, Azure e Google Cloud, e são capazes de otimizar a infraestrutura de TI de uma organização."
+    },
+    {
+        "agente": "Designer de UX/UI",
+        "descricao": "Um designer de UX/UI é responsável por projetar a experiência do usuário e a interface de usuário de um produto ou serviço digital. Eles têm habilidades em design gráfico, prototipagem, usabilidade e estão focados em criar experiências digitais intuitivas e agradáveis."
+    },
+    {
+        "agente": "Especialista em IA e Machine Learning",
+        "descricao": "Um especialista em IA e machine learning é responsável por desenvolver e implementar algoritmos de machine learning e inteligência artificial para resolver problemas complexos. Eles têm habilidades em programação, estatística, matemática e são capazes de aplicar técnicas de aprendizado de máquina em diversos domínios."
+    },
+    {
+        "agente": "Engenheiro de Software",
+        "descricao": "Um engenheiro de software é responsável por projetar, desenvolver, testar e manter software. Eles têm habilidades em programação, engenharia de software e são proficientes em linguagens de programação como Java, Python, C++."
+    },
+    {
+        "agente": "Analista de Negócios",
+        "descricao": "Um analista de negócios é responsável por analisar as operações de uma empresa para identificar oportunidades de melhoria. Eles têm habilidades em análise de dados, modelagem de negócios, e são capazes de traduzir requisitos de negócios em soluções tecnológicas."
+    },
+    {
+        "agente": "Especialista em Redes",
+        "descricao": "Um especialista em redes é responsável por projetar, implementar e gerenciar redes de computadores para garantir a comunicação eficaz entre os sistemas. Eles têm habilidades em protocolos de rede, segurança de rede e são capazes de resolver problemas de conectividade."
     }
 ]
